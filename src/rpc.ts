@@ -62,11 +62,7 @@ server.addService(proto.LicenseService.service, {
   },
 })
 
-server.bindAsync(
-  process.env.LICENSE_RPC_ENDPOINT!,
-  grpc.ServerCredentials.createInsecure(),
-  (error, port) => {
-    console.log("Server running at " + process.env.LICENSE_RPC_ENDPOINT!)
-    server.start()
-  }
-)
+server.bindAsync("localhost:50051", grpc.ServerCredentials.createInsecure(), (error, port) => {
+  console.log("Server running at " + "localhost:50051")
+  server.start()
+})

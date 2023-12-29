@@ -56,5 +56,6 @@ jobs:
                 -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
                 -e DIRECT_URL="${{ secrets.DIRECT_URL }}" \
                 -e JUNZIORXIAOREN="${{ secrets.JUNZIORXIAOREN }}" \
-                -e LICENSE_RPC_ENDPOINT="${{ secrets.LICENSE_RPC_ENDPOINT }}" \
+                -p ${{ secrets.DEPLOY_CONTAINER_REST_PORT_OUTTER }}:3000 \
+                -p ${{ secrets.DEPLOY_CONTAINER_RPC_PORT_OUTTER }}:50051 \
                 -d ${{ env.REGISTRY }}/${{ github.repository }}:${{ env.IMAGE_TAG }}

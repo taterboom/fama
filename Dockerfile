@@ -18,7 +18,7 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 
 EXPOSE 3000
-EXPOSE 5000
+EXPOSE 50051
 
 # Run app
 CMD [ "pnpm", "start" ]

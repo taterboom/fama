@@ -20,7 +20,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, options)
 const Service = grpc.loadPackageDefinition(packageDefinition).LicenseService
 
 // @ts-ignore
-const client = new Service(process.env.LICENSE_RPC_ENDPOINT, grpc.credentials.createInsecure())
+const client = new Service("localhost:50051", grpc.credentials.createInsecure())
 
 export type License = {
   id: number
