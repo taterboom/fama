@@ -5,8 +5,7 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY . .
 
 # Install pnpm
 RUN npm install -g pnpm@8.11.0
@@ -14,9 +13,6 @@ RUN npm install -g pnpm@8.11.0
 # Install app dependencies
 
 RUN pnpm install --frozen-lockfile
-
-# Bundle app source
-COPY . .
 
 # Build app
 RUN pnpm run build
