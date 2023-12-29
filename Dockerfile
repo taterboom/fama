@@ -9,7 +9,7 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 
 # Install pnpm
-RUN npm install -g pnpm@8
+RUN npm install -g pnpm@8.11.0
 
 # Install app dependencies
 
