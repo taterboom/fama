@@ -18,6 +18,9 @@ RUN pnpm install --frozen-lockfile
 # Bundle app source
 COPY . .
 
+# Build app
+RUN pnpm run build
+
 EXPOSE 3000
 EXPOSE 5000
 
