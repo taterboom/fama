@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+service LicenseService {
+    rpc GetLicense (IdRequest) returns (License);
+    rpc ConsumeLicense (ConsumeLicenseRequest) returns (License);
+}
+
+message IdRequest {
+    int32 id = 1;
+}
+
+message License {
+    int32 id = 1;
+    int32 rest = 2;
+    int32 total = 3;
+    string biz = 4;
+    string extra = 5;
+}
+
+message ConsumeLicenseRequest {
+    int32 id = 1;
+    int32 count = 2;
+}
