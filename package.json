@@ -9,8 +9,8 @@
     "dev:rest": "npx ts-node ./src/rest.ts",
     "dev:rpc": "npx ts-node ./src/rpc.ts",
     "build": "npx tsc && cp ./src/license.proto ./dist/license.proto",
-    "prestart": "npx prisma migrate deploy",
-    "start": "node ./dist/rest.js && node ./dist/rpc.js"
+    "prisma:delpoy": "npx prisma migrate deploy",
+    "start": "pnpm prisma:delpoy && node ./dist/rest.js && node ./dist/rpc.js"
   },
   "keywords": [],
   "author": "",
