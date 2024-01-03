@@ -12,9 +12,12 @@ datasource db {
 }
 
 model License {
-  id    Int     @id @default(autoincrement())
-  rest  Int
-  total Int
-  biz   String
-  extra String?
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  rest      Int
+  total     Int
+  biz       String
+  extra     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

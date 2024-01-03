@@ -1,6 +1,6 @@
 import { License, PrismaClient } from "@prisma/client"
 import express from "express"
-import { encode, formatId } from "./utils"
+import { encode, generateKey } from "./utils"
 
 const prisma = new PrismaClient()
 
@@ -26,12 +26,10 @@ app.get("/licenses", async (req, res, next) => {
   }
 })
 
-app.get("/licenses/:id", async (req, res, next) => {
+app.get("/licenses/:key", async (req, res, next) => {
   try {
-    const id = formatId(req.params.id)
-    if (!id) return res.status(400).json({ error: "Invalid ID" })
     const data = await prisma.license.findUnique({
-      where: { id },
+      where: { key: req.params.key },
     })
     if (!data) return res.status(404).json({ error: "Not found" })
     return res.json(encodeLicense(data))
@@ -47,6 +45,7 @@ app.post("/licenses", async (req, res, next) => {
         rest: req.body.rest,
         total: req.body.total,
         biz: req.body.biz,
+        key: generateKey(),
       },
     })
     return res.json(encodeLicense(data))
@@ -55,12 +54,10 @@ app.post("/licenses", async (req, res, next) => {
   }
 })
 
-app.delete("/licenses/:id", async (req, res, next) => {
+app.delete("/licenses/:key", async (req, res, next) => {
   try {
-    const id = formatId(req.params.id)
-    if (!id) return res.status(400).json({ error: "Invalid ID" })
     await prisma.license.delete({
-      where: { id },
+      where: { key: req.params.key },
     })
     return res.status(204)
   } catch (err) {
@@ -68,12 +65,10 @@ app.delete("/licenses/:id", async (req, res, next) => {
   }
 })
 
-app.put("/licenses/:id", async (req, res, next) => {
+app.put("/licenses/:key", async (req, res, next) => {
   try {
-    const id = formatId(req.params.id)
-    if (!id) return res.status(400).json({ error: "Invalid ID" })
     const data = await prisma.license.update({
-      where: { id },
+      where: { key: req.params.key },
       data: {
         rest: req.body.rest,
         total: req.body.total,
@@ -86,12 +81,10 @@ app.put("/licenses/:id", async (req, res, next) => {
   }
 })
 
-app.post("/licenses/:id/consume", async (req, res, next) => {
-  const id = formatId(req.params.id)
-  if (!id) return res.status(400).json({ error: "Invalid ID" })
+app.post("/licenses/:key/consume", async (req, res, next) => {
   try {
     const license = await prisma.license.findUnique({
-      where: { id },
+      where: { key: req.params.key },
     })
 
     if (!license) {
@@ -107,7 +100,7 @@ app.post("/licenses/:id/consume", async (req, res, next) => {
   try {
     const data = await prisma.license.update({
       where: {
-        id: formatId(req.params.id),
+        key: req.params.key,
         rest: {
           gt: 0,
         },
