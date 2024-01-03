@@ -53,6 +53,7 @@ jobs:
             docker stop ${{ secrets.DEPLOY_CONTAINER_NAME }} || true
             docker system prune -f
             docker run --name ${{ secrets.DEPLOY_CONTAINER_NAME }} \
+                --restart=unless-stopped \
                 -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
                 -e DIRECT_URL="${{ secrets.DIRECT_URL }}" \
                 -e JUNZIORXIAOREN="${{ secrets.JUNZIORXIAOREN }}" \
