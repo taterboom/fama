@@ -7,4 +7,5 @@ export const encode = (id: number) => sqids.encode([id])
 
 export const decode = (id: string) => sqids.decode(id)[0]
 
-export const formatId = (id: string | number) => (typeof id === "string" ? decode(id) : id)
+export const formatId = (id: string | number) =>
+  typeof id === "string" ? (decode(id) as number | undefined) : id

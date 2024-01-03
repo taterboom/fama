@@ -8,9 +8,11 @@
     "postinstall": "prisma generate",
     "dev:rest": "npx ts-node ./src/rest.ts",
     "dev:rpc": "npx ts-node ./src/rpc.ts",
-    "build": "npx tsc && cp ./src/license.proto ./dist/license.proto",
-    "prisma:delpoy": "npx prisma migrate deploy",
-    "start": "pnpm prisma:delpoy && node ./dist/rest.js && node ./dist/rpc.js"
+    "build:rest": "npx prisma generate && npx tsc",
+    "build:rpc": "npx prisma generate && npx tsc && cp ./src/license.proto ./dist/license.proto",
+    "start:rest": "pnpm prisma:delpoy && node ./dist/rest.js",
+    "start:rpc": "pnpm prisma:delpoy && node ./dist/rpc.js",
+    "prisma:delpoy": "npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",

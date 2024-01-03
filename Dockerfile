@@ -5,20 +5,23 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY . .
+COPY package.json ./
+COPY pnpm-lock.yaml ./
 
 # Install pnpm
 RUN npm install -g pnpm@8.11.0
 
 # Install app dependencies
-
 RUN pnpm install --frozen-lockfile
 
+# Bundle app source
+COPY . .
+
 # Build app
-RUN pnpm run build
+RUN pnpm run build:rest
 
 EXPOSE 3000
-EXPOSE 50051
+# EXPOSE 50051
 
 # Run app
-CMD [ "pnpm", "start" ]
+CMD [ "pnpm", "start:rest" ]

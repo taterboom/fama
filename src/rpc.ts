@@ -52,7 +52,9 @@ server.addService(proto.LicenseService.service, {
           },
         },
         data: {
-          rest: data.rest - 1,
+          rest: {
+            decrement: 1,
+          },
         },
       })
       callback(null, updateResult)
